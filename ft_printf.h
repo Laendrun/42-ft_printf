@@ -3,36 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saeby <saeby>                              +#+  +:+       +#+        */
+/*   By: saeby <saeby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 19:07:53 by saeby             #+#    #+#             */
-/*   Updated: 2022/10/31 10:42:29 by saeby            ###   ########.fr       */
+/*   Created: 2023/03/12 15:57:32 by saeby             #+#    #+#             */
+/*   Updated: 2023/03/12 20:53:02 by saeby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# define TEST
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
 # include <stdarg.h>
-# ifdef TEST
-#  include <stdio.h>
-# endif
+# define MAXBUF 64
 
-int		ft_printf(const char *input_str, ...);
-void	ft_putchar(char c);
-int		ft_putnbr(int nbr);
-int		ft_putunbr(unsigned int nb);
-int		ft_put_ptr(uintptr_t nbr);
-int		ft_put_hex(unsigned int nbr, char *chars);
+typedef struct s_flags
+{
+	int				length;
+	int				prec;
+	int				ladjust;
+	char			padc;
+	long			n;
+	unsigned long	u;
+	int				plus_sign;
+	int				sign_char;
+	int				altfmt;
+	int				trunc;
+	int				base;
+	char			c;
+	int				capitals;
+	int				count;
+	char			*prefix;
+}	t_flags;
 
-int		ft_print_c(char c);
-int		ft_print_s(char *str);
-int		ft_print_d(int nbr);
-int		ft_print_u(unsigned int nbr);
-int		ft_print_p(uintptr_t adr);
-int		ft_print_x(unsigned int nbr, int format);
+int		ft_printf(const char *fmt, ...);
+
+int		ft_isdigit(int c);
+size_t	ft_strlen(const char *s);
+int		ft_putchar(int c);
+int		ft_putstr(const char *s);
+char	ctod(int c);
+int		adjust_left(t_flags *flags);
+int		padd(t_flags *flags);
 
 #endif
